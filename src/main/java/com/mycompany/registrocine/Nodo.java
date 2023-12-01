@@ -32,7 +32,7 @@ public class Nodo {
     public Nodo getPrev() {
         return prev;
     }
-
+    
     public void setPrev(Nodo prev) {
         this.prev = prev;
     }
