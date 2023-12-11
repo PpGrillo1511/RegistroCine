@@ -1,31 +1,42 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.registrocine;
 
-/**
- *
- * @author PC 17
- */
 import javax.swing.JOptionPane;
 
 public class ListaPeliculas {
     private Nodo head;
     private Nodo tail;
 
-    // Constructor
     public ListaPeliculas() {
         this.head = null;
         this.tail = null;
     }
 
-    // Método para agregar películas
+    private Nodo buscarPeliculaPorTitulo(String titulo) {
+        Nodo actual = head;
+        while (actual != null) {
+            if (actual.getPelicula().getTitulo().equalsIgnoreCase(titulo)) {
+                return actual;
+            }
+            actual = actual.getNext();
+        }
+        return null;
+    }
+
     public void agregarPelicula() {
         String titulo = JOptionPane.showInputDialog("Ingrese el título de la película:");
         String genero = JOptionPane.showInputDialog("Ingrese el género de la película:");
         String productora = JOptionPane.showInputDialog("Ingrese la productora de la película:");
         String director = JOptionPane.showInputDialog("Ingrese el director de la película:");
+
+        if (titulo.isEmpty() || genero.isEmpty() || productora.isEmpty() || director.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.");
+            return;
+        }
+
+        if (buscarPeliculaPorTitulo(titulo) != null) {
+            JOptionPane.showMessageDialog(null, "La película ya existe en el registro.");
+            return;
+        }
 
         Pelicula nuevaPelicula = new Pelicula(titulo, genero, productora, director);
         Nodo nuevoNodo = new Nodo(nuevaPelicula);
@@ -42,55 +53,82 @@ public class ListaPeliculas {
         JOptionPane.showMessageDialog(null, "Película agregada correctamente.");
     }
 
-    // Método para eliminar películas por título
     public void eliminarPelicula() {
         String titulo = JOptionPane.showInputDialog("Ingrese el título de la película a eliminar:");
-        
-        Nodo actual = head;
-        while (actual != null) {
-            if (actual.getPelicula().getTitulo().equalsIgnoreCase(titulo)) {
-                Nodo previo = actual.getPrev();
-                Nodo siguiente = actual.getNext();
 
-                if (previo != null) {
-                    previo.setNext(siguiente);
-                } else {
-                    head = siguiente;
-                }
+        Nodo peliculaAEliminar = buscarPeliculaPorTitulo(titulo);
 
-                if (siguiente != null) {
-                    siguiente.setPrev(previo);
-                } else {
-                    tail = previo;
-                }
-                
-                JOptionPane.showMessageDialog(null, "Película eliminada correctamente.");
-                return;
-            }
-            actual = actual.getNext();
+        if (peliculaAEliminar == null) {
+            JOptionPane.showMessageDialog(null, "La película no se encuentra en el registro.");
+            return;
         }
 
-        JOptionPane.showMessageDialog(null, "Película no encontrada.");
+        Nodo previo = peliculaAEliminar.getPrev();
+        Nodo siguiente = peliculaAEliminar.getNext();
+
+        if (previo != null) {
+            previo.setNext(siguiente);
+        } else {
+            head = siguiente;
+        }
+
+        if (siguiente != null) {
+            siguiente.setPrev(previo);
+        } else {
+            tail = previo;
+        }
+
+        JOptionPane.showMessageDialog(null, "Película eliminada correctamente.");
     }
 
-    // Método para buscar película por título
-    public void buscarPorTitulo() {
-        String titulo = JOptionPane.showInputDialog("Ingrese el título de la película a buscar:");
-        
+    public void buscarPelicula() {
+        String[] opcionesBusqueda = {"Título", "Género", "Productora", "Director"};
+        String opcionElegida = (String) JOptionPane.showInputDialog(
+                null,
+                "Seleccione el criterio de búsqueda:",
+                "Buscar película por:",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opcionesBusqueda,
+                opcionesBusqueda[0]);
+
+        String busqueda = JOptionPane.showInputDialog("Ingrese el dato de la película a buscar:");
+
         Nodo actual = head;
+        boolean encontrada = false;
         while (actual != null) {
-            if (actual.getPelicula().getTitulo().equalsIgnoreCase(titulo)) {
+            Pelicula pelicula = actual.getPelicula();
+            boolean coincidencia = false;
+
+            switch (opcionElegida) {
+                case "Título":
+                    coincidencia = pelicula.getTitulo().equalsIgnoreCase(busqueda);
+                    break;
+                case "Género":
+                    coincidencia = pelicula.getGenero().equalsIgnoreCase(busqueda);
+                    break;
+                case "Productora":
+                    coincidencia = pelicula.getProductora().equalsIgnoreCase(busqueda);
+                    break;
+                case "Director":
+                    coincidencia = pelicula.getDirector().equalsIgnoreCase(busqueda);
+                    break;
+            }
+
+            if (coincidencia) {
                 JOptionPane.showMessageDialog(null, "Película encontrada:\n" +
-                        "Título: " + actual.getPelicula().getTitulo() + "\n" +
-                        "Género: " + actual.getPelicula().getGenero() + "\n" +
-                        "Productora: " + actual.getPelicula().getProductora() + "\n" +
-                        "Director: " + actual.getPelicula().getDirector());
-                return;
+                        "Título: " + pelicula.getTitulo() + "\n" +
+                        "Género: " + pelicula.getGenero() + "\n" +
+                        "Productora: " + pelicula.getProductora() + "\n" +
+                        "Director: " + pelicula.getDirector());
+
+                encontrada = true;
             }
             actual = actual.getNext();
         }
 
-        JOptionPane.showMessageDialog(null, "Película no encontrada.");
+        if (!encontrada) {
+            JOptionPane.showMessageDialog(null, "Película no encontrada en el registro.");
+        }
     }
 }
-
