@@ -1,5 +1,7 @@
 package com.mycompany.registrocine;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 public class RegistroCineMain {
@@ -7,26 +9,26 @@ public class RegistroCineMain {
         ListaPeliculas listaPeliculas = new ListaPeliculas();
 
         while (true) {
-            String opcion = JOptionPane.showInputDialog("""
-                                                    Seleccione una opción:
-                                                    1. Agregar película
-                                                    2. Eliminar película
-                                                    3. Buscar película
-                                                    4. Reservar asiento
-                                                    5. Mostrar mapa de asientos
-                                                    6. Salir""");
+            String opcion = (String) JOptionPane.showInputDialog(null,
+                    "Seleccione una opción:",
+                    "Menú",
+                    JOptionPane.PLAIN_MESSAGE,
+                    new ImageIcon("logo.png/"),  // Ruta de la imagen
+                    new String[]{"Agregar película", "Eliminar película", "Buscar película",
+                            "Reservar asiento", "Mostrar todas las películas", "Mostrar mapa de asientos", "Salir"},
+                    "Agregar película");
 
             switch (opcion) {
-                case "1":
+                case "Agregar película":
                     listaPeliculas.agregarPelicula();
                     break;
-                case "2":
+                case "Eliminar película":
                     listaPeliculas.eliminarPelicula();
                     break;
-                case "3":
+                case "Buscar película":
                     listaPeliculas.buscarPelicula();
                     break;
-                case "4":
+                case "Reservar asiento":
                     String tituloPelicula = JOptionPane.showInputDialog("Ingrese el título de la película:");
                     int fila = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de fila del asiento:"));
                     int columna = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el número de columna del asiento:"));
@@ -34,14 +36,17 @@ public class RegistroCineMain {
                     if (listaPeliculas.reservarAsiento(tituloPelicula, fila, columna)) {
                         JOptionPane.showMessageDialog(null, "Asiento reservado correctamente.");
                     } else {
-                        JOptionPane.showMessageDialog(null, "El asiento está ocupado o la película no se encuentra en el registro.");
+                        JOptionPane.showMessageDialog(null, "El asiento está ocupado o la película no se encuentra en el registro.", "Error", JOptionPane.ERROR_MESSAGE);
                     }
                     break;
-                case "5":
+                case "Mostrar todas las películas":
+                    listaPeliculas.mostrarTodasLasPeliculas();
+                    break;
+                case "Mostrar mapa de asientos":
                     // Lógica para mostrar el mapa de asientos
                     break;
-                case "6":
-                    JOptionPane.showMessageDialog(null, "Saliendo del programa.");
+                case "Salir":
+                    JOptionPane.showMessageDialog(null, "Saliendo del programa.", "Saliendo", JOptionPane.CLOSED_OPTION);
                     System.exit(0);
                 default:
                     JOptionPane.showMessageDialog(null, "Opción inválida.");

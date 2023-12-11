@@ -92,6 +92,29 @@ public class ListaPeliculas {
 
         JOptionPane.showMessageDialog(null, "Película eliminada correctamente.");
     }
+    
+    public void mostrarTodasLasPeliculas() {
+    Nodo actual = head;
+
+    if (actual == null) {
+        JOptionPane.showMessageDialog(null, "No hay películas registradas.");
+        return;
+    }
+
+    StringBuilder infoPeliculas = new StringBuilder("Peliculas Registradas:\n");
+
+    while (actual != null) {
+        Pelicula pelicula = actual.getPelicula();
+        infoPeliculas.append("Título: ").append(pelicula.getTitulo()).append("\n");
+        infoPeliculas.append("Género: ").append(pelicula.getGenero()).append("\n");
+        infoPeliculas.append("Productora: ").append(pelicula.getProductora()).append("\n");
+        infoPeliculas.append("Director: ").append(pelicula.getDirector()).append("\n\n");
+        actual = actual.getNext();
+    }
+
+    JOptionPane.showMessageDialog(null, infoPeliculas.toString(), "Lista de Películas", JOptionPane.INFORMATION_MESSAGE);
+}
+
 
     public void buscarPelicula() {
         String[] opcionesBusqueda = {"Título", "Género", "Productora", "Director"};
