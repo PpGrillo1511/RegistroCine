@@ -22,7 +22,7 @@ public class RegistroCineMain {
                     JOptionPane.PLAIN_MESSAGE,
                     new ImageIcon("logo.png/"),  // Ruta de la imagen
                     new String[]{"Agregar película", "Eliminar película", "Buscar película",
-                            "Reservar asiento", "Mostrar todas las películas", "Mostrar mapa de asientos", "Salir"},
+                            "Reservar asiento", "Mostrar todas las películas", "Mostrar mapa de asientos","Mostrar asientos ocupados", "Salir"},
                     "Agregar película");
 
             switch (opcion) {
@@ -52,6 +52,10 @@ public class RegistroCineMain {
                 case "Mostrar mapa de asientos":
                     // Lógica para mostrar el mapa de asientos
                     JOptionPane.showMessageDialog(null, "Funcion no implementada :(", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case "Mostrar asientos ocupados":
+                    String tituloParaAsientos = JOptionPane.showInputDialog("Ingrese el título de la película:");
+                    listaPeliculas.mostrarAsientosOcupados(tituloParaAsientos);
                     break;
                 case "Salir":
                     JOptionPane.showMessageDialog(null, "Saliendo del programa.", "Saliendo", JOptionPane.CLOSED_OPTION);

@@ -116,6 +116,38 @@ public class ListaPeliculas {
         JOptionPane.showMessageDialog(null, "Película eliminada correctamente.");
     }
     
+    public void mostrarAsientosOcupados(String tituloPelicula) {
+    Nodo nodoPelicula = buscarPeliculaPorTitulo(tituloPelicula);
+
+    if (nodoPelicula != null) {
+        Pelicula pelicula = nodoPelicula.getPelicula();
+        Sala sala = pelicula.getSala();
+
+        Asiento[][] asientos = sala.getAsientos();
+        int numFilas = asientos.length;
+        int numColumnas = asientos[0].length;
+
+        StringBuilder infoAsientosOcupados = new StringBuilder("Asientos ocupados para la película '" + tituloPelicula + "':\n");
+
+        for (int i = 0; i < numFilas; i++) {
+            for (int j = 0; j < numColumnas; j++) {
+                if (asientos[i][j].isOcupado()) {
+                    infoAsientosOcupados.append("Fila: ").append(i).append(", Columna: ").append(j).append("\n");
+                }
+            }
+        }
+
+        if (infoAsientosOcupados.length() == ("Asientos ocupados para la película '" + tituloPelicula + "':\n").length()) {
+            JOptionPane.showMessageDialog(null, "No hay asientos ocupados para esta película.");
+        } else {
+            JOptionPane.showMessageDialog(null, infoAsientosOcupados.toString(), "Asientos ocupados", JOptionPane.INFORMATION_MESSAGE);
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "La película no se encuentra en el registro.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    
     public void mostrarTodasLasPeliculas() {
     Nodo actual = head;
 

@@ -11,6 +11,11 @@ package com.mycompany.registrocine;
 // Representa la sala de cine con asientos
 public class Sala {
     private Asiento[][] asientos; // Matriz de asientos
+    
+    public Asiento[][] getAsientos() {
+    return asientos;
+}
+
 
     // Constructor que crea una sala con asientos vacíos
     public Sala(int filas, int columnas) {
