@@ -66,6 +66,11 @@ public class ListaPeliculas {
     }
 
     public void eliminarPelicula() {
+        if (head == null) {
+        JOptionPane.showMessageDialog(null, "No hay películas registradas.");
+        return;
+    }
+        
         String titulo = JOptionPane.showInputDialog("Ingrese el título de la película a eliminar:");
 
         Nodo peliculaAEliminar = buscarPeliculaPorTitulo(titulo);
