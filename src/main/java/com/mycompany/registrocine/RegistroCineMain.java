@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.registrocine;
 
-/**
- *
- * @author PC 17
- */
 import javax.swing.JOptionPane;
 
 public class RegistroCineMain {
@@ -16,11 +8,11 @@ public class RegistroCineMain {
 
         while (true) {
             String opcion = JOptionPane.showInputDialog("""
-                                                        Seleccione una opci\u00f3n:
-                                                        1. Agregar pel\u00edcula
-                                                        2. Eliminar pel\u00edcula
-                                                        3. Buscar pel\u00edcula por t\u00edtulo
-                                                        4. Salir""");
+                                                    Seleccione una opción:
+                                                    1. Agregar película
+                                                    2. Eliminar película
+                                                    3. Buscar película
+                                                    4. Salir""");
 
             switch (opcion) {
                 case "1":
@@ -30,7 +22,7 @@ public class RegistroCineMain {
                     listaPeliculas.eliminarPelicula();
                     break;
                 case "3":
-                    listaPeliculas.buscarPorTitulo();
+                    listaPeliculas.buscarPelicula();
                     break;
                 case "4":
                     JOptionPane.showMessageDialog(null, "Saliendo del programa.");
@@ -41,4 +33,3 @@ public class RegistroCineMain {
         }
     }
 }
-
