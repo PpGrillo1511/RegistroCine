@@ -122,6 +122,10 @@ public class ListaPeliculas {
 
 
     public void buscarPelicula() {
+        if (head == null) {
+        JOptionPane.showMessageDialog(null, "No hay películas registradas.");
+        return;
+    }
         String[] opcionesBusqueda = {"Título", "Género", "Productora", "Director"};
         String opcionElegida = (String) JOptionPane.showInputDialog(
                 null,
