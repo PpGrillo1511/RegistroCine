@@ -44,7 +44,7 @@ public class RegistroCineMain {
                     break;
                 case "Mostrar mapa de asientos":
                     // Lógica para mostrar el mapa de asientos
-                    JOptionPane.showMessageDialog(null, "Funcion no inplementada :(", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Funcion no implementada :(", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
                 case "Salir":
                     JOptionPane.showMessageDialog(null, "Saliendo del programa.", "Saliendo", JOptionPane.CLOSED_OPTION);
