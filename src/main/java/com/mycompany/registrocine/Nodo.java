@@ -13,14 +13,12 @@ public class Nodo {
     private Nodo prev;
     private Nodo next;
 
-    // Constructor que recibe una Pelicula como argumento
     public Nodo(Pelicula pelicula) {
         this.pelicula = pelicula;
         this.prev = null;
         this.next = null;
     }
 
-    // Getters y Setters
     public Pelicula getPelicula() {
         return pelicula;
     }
@@ -32,7 +30,7 @@ public class Nodo {
     public Nodo getPrev() {
         return prev;
     }
-    
+
     public void setPrev(Nodo prev) {
         this.prev = prev;
     }

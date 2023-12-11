@@ -9,7 +9,23 @@ package com.mycompany.registrocine;
  * @author PC 17
  */
 public class Pelicula {
+    private String titulo;
+    private String genero;
+    private String productora;
+    private String director;
+    private Sala sala;
 
+    public Pelicula(String titulo, String genero, String productora, String director, int filas, int columnas) {
+        this.titulo = titulo;
+        this.genero = genero;
+        this.productora = productora;
+        this.director = director;
+        this.sala = new Sala(filas, columnas);
+    }
+
+    public Sala getSala() {
+        return sala;
+    }
     public String getTitulo() {
         return titulo;
     }
@@ -25,17 +41,4 @@ public class Pelicula {
     public String getDirector() {
         return director;
     }
-    private String titulo;
-    private String genero;
-    private String productora;
-    private String director;
-
-    // Constructor
-    public Pelicula(String titulo, String genero, String productora, String director) {
-        this.titulo = titulo;
-        this.genero = genero;
-        this.productora = productora;
-        this.director = director;
-    }
-
 }

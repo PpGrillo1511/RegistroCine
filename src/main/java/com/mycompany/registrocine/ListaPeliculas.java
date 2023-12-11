@@ -22,6 +22,15 @@ public class ListaPeliculas {
         return null;
     }
 
+    public boolean reservarAsiento(String titulo, int fila, int columna) {
+        Nodo nodoPelicula = buscarPeliculaPorTitulo(titulo);
+        if (nodoPelicula != null) {
+            Pelicula pelicula = nodoPelicula.getPelicula();
+            return pelicula.getSala().reservarAsiento(fila, columna);
+        }
+        return false;
+    }
+
     public void agregarPelicula() {
         String titulo = JOptionPane.showInputDialog("Ingrese el título de la película:");
         String genero = JOptionPane.showInputDialog("Ingrese el género de la película:");
@@ -38,7 +47,10 @@ public class ListaPeliculas {
             return;
         }
 
-        Pelicula nuevaPelicula = new Pelicula(titulo, genero, productora, director);
+        int numFilas = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de filas de la sala:"));
+        int numColumnas = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de columnas de la sala:"));
+
+        Pelicula nuevaPelicula = new Pelicula(titulo, genero, productora, director, numFilas, numColumnas);
         Nodo nuevoNodo = new Nodo(nuevaPelicula);
 
         if (head == null) {
@@ -111,7 +123,7 @@ public class ListaPeliculas {
                     coincidencia = pelicula.getProductora().equalsIgnoreCase(busqueda);
                     break;
                 case "Director":
-                    coincidencia = pelicula.getDirector().equalsIgnoreCase(busqueda);
+                    coincidencia  = pelicula.getDirector().equalsIgnoreCase(busqueda);
                     break;
             }
 
@@ -132,3 +144,4 @@ public class ListaPeliculas {
         }
     }
 }
+
