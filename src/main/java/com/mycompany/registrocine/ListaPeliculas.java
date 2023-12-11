@@ -1,34 +1,45 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.mycompany.registrocine;
 
+/**
+ *
+ * @author jloza
+ */
 import javax.swing.JOptionPane;
 
 public class ListaPeliculas {
-    private Nodo head;
-    private Nodo tail;
+    private Nodo head; // Nodo inicial de la lista
+    private Nodo tail; // Nodo final de la lista
 
     public ListaPeliculas() {
-        this.head = null;
-        this.tail = null;
+        this.head = null; // Inicialización del nodo inicial como nulo
+        this.tail = null; // Inicialización del nodo final como nulo
     }
 
+    // Método para buscar una película por su título
     private Nodo buscarPeliculaPorTitulo(String titulo) {
-        Nodo actual = head;
+        Nodo actual = head; // Comienza desde el inicio de la lista
         while (actual != null) {
+            // Itera a través de la lista y devuelve el nodo si el título coincide
             if (actual.getPelicula().getTitulo().equalsIgnoreCase(titulo)) {
                 return actual;
             }
-            actual = actual.getNext();
+            actual = actual.getNext(); // Avanza al siguiente nodo
         }
-        return null;
+        return null; // Retorna nulo si la película no se encuentra
     }
 
+     // Método para reservar un asiento para una película
     public boolean reservarAsiento(String titulo, int fila, int columna) {
-        Nodo nodoPelicula = buscarPeliculaPorTitulo(titulo);
+        Nodo nodoPelicula = buscarPeliculaPorTitulo(titulo); // Busca la película por su título
         if (nodoPelicula != null) {
             Pelicula pelicula = nodoPelicula.getPelicula();
-            return pelicula.getSala().reservarAsiento(fila, columna);
+            return pelicula.getSala().reservarAsiento(fila, columna); // Reserva el asiento si la película existe
         }
-        return false;
+        return false; // Retorna falso si la película no se encuentra
     }
 
     public void agregarPelicula() {
@@ -37,26 +48,32 @@ public class ListaPeliculas {
         String productora = JOptionPane.showInputDialog("Ingrese la productora de la película:");
         String director = JOptionPane.showInputDialog("Ingrese el director de la película:");
 
+        // Verifica si algún campo está vacío
         if (titulo.isEmpty() || genero.isEmpty() || productora.isEmpty() || director.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, complete todos los campos.");
             return;
         }
 
+        // Verifica si la película ya existe en la lista
         if (buscarPeliculaPorTitulo(titulo) != null) {
             JOptionPane.showMessageDialog(null, "La película ya existe en el registro.");
             return;
         }
-
+        
+        //Solicita la cantidad de filas y columnas de la sala
         int numFilas = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de filas de la sala:"));
         int numColumnas = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de columnas de la sala:"));
 
+        // Crea una nueva película y un nuevo nodo para agregar a la lista
         Pelicula nuevaPelicula = new Pelicula(titulo, genero, productora, director, numFilas, numColumnas);
         Nodo nuevoNodo = new Nodo(nuevaPelicula);
 
+        // Verifica si la lista está vacía para agregar la película como el primer elemento
         if (head == null) {
             head = nuevoNodo;
             tail = nuevoNodo;
         } else {
+            // Agrega la película al final de la lista
             tail.setNext(nuevoNodo);
             nuevoNodo.setPrev(tail);
             tail = nuevoNodo;
@@ -74,12 +91,13 @@ public class ListaPeliculas {
         String titulo = JOptionPane.showInputDialog("Ingrese el título de la película a eliminar:");
 
         Nodo peliculaAEliminar = buscarPeliculaPorTitulo(titulo);
-
+        // Verifica si la película no se encuentra en la lista
         if (peliculaAEliminar == null) {
             JOptionPane.showMessageDialog(null, "La película no se encuentra en el registro.");
             return;
         }
-
+        
+        // Obtiene el nodo previo y siguiente al nodo de la película a eliminar
         Nodo previo = peliculaAEliminar.getPrev();
         Nodo siguiente = peliculaAEliminar.getNext();
 
@@ -105,7 +123,7 @@ public class ListaPeliculas {
         JOptionPane.showMessageDialog(null, "No hay películas registradas.");
         return;
     }
-
+    // Crea una cadena con la información de todas las películas
     StringBuilder infoPeliculas = new StringBuilder("Peliculas Registradas:\n");
 
     while (actual != null) {

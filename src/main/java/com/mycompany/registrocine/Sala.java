@@ -8,11 +8,14 @@ package com.mycompany.registrocine;
  *
  * @author jloza
  */
+// Representa la sala de cine con asientos
 public class Sala {
-    private Asiento[][] asientos;
+    private Asiento[][] asientos; // Matriz de asientos
 
+    // Constructor que crea una sala con asientos vacíos
     public Sala(int filas, int columnas) {
         this.asientos = new Asiento[filas][columnas];
+        // Inicializa cada asiento en la sala como no ocupado
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
                 this.asientos[i][j] = new Asiento();
@@ -20,6 +23,7 @@ public class Sala {
         }
     }
 
+    // Reserva un asiento específico si está disponible
     public boolean reservarAsiento(int fila, int columna) {
         if (fila < 0 || fila >= asientos.length || columna < 0 || columna >= asientos[0].length) {
             return false; // Asiento fuera de los límites
@@ -33,6 +37,7 @@ public class Sala {
         return true;
     }
 
+    // Libera un asiento específico si está ocupado
     public boolean liberarAsiento(int fila, int columna) {
         if (fila < 0 || fila >= asientos.length || columna < 0 || columna >= asientos[0].length) {
             return false; // Asiento fuera de los límites
@@ -46,4 +51,3 @@ public class Sala {
         return true;
     }
 }
-
